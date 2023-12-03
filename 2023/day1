@@ -1,0 +1,31 @@
+#!/bin/bash
+
+data=./inputs/input1
+partb=$1
+
+if [[ $partb ]]; then
+    cp $data $data.tmp &> /dev/null
+    nvim $data.tmp --headless \
+        +"%s/two/t2o/g \
+        | %s/one/o1e/g \
+        | %s/three/t3e/g \
+        | %s/four/4/g\
+        | %s/five/5e/g\
+        | %s/six/6/g\
+        | %s/seven/7n/g \
+        | %s/eight/e8t/g \
+        | %s/nine/n9e/g\
+        | %s/[a-z]//g \
+        | %s/^\(.\).*\(.\)/\1\2/\
+        | %s/^.$/\0\0/ \
+        | wq" &> /dev/null
+    paste -sd+ $data.tmp | bc
+else
+    cp $data $data.tmp &> /dev/null
+    nvim $data.tmp --headless \
+        +"%s/[a-z]//g \
+        | %s/^\(.\).*\(.\)/\1\2/ \
+        | %s/^.$/\0\0/ \
+        | wq" &> /dev/null
+    paste -sd+ $data.tmp | bc
+fi

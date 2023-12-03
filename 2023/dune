@@ -1,0 +1,12 @@
+(ocamllex
+ (modules lexer2))
+
+(menhir
+ (modules parser2)
+ (flags
+  (-v --explain)))
+
+(executable
+  (name days)
+  (modules_without_implementation types2)
+  )
